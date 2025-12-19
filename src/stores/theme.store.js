@@ -5,15 +5,17 @@ export const themeStore = create(
     persist(
         (set) => ({
             // Theme State
-            theme: 'dark',
+            theme: 'light',
+            hasHydrated: false,
             
             // Update State
-            updateTheme: (updatedTheme) => set({
-                theme: updatedTheme
-            })
+            updateTheme: (theme) => set({ theme }),
         }), 
         {
-            name: 'theme-storage'
+            name: 'theme-storage',
+            onRehydrateStorage: () => (state) => {
+                state.hasHydrated = true;
+            },
         }
     )
 );

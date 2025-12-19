@@ -1,15 +1,9 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { 
-    themeStore
-} from './stores/theme.store';
+import Header from '@components/Header';
 
 function App() {
-    const { theme, updateTheme } = themeStore();
     return (
-        <main className={theme}>
-
+        <main>
+            <Header />
         </main>
     )
 }
