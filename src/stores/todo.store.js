@@ -6,6 +6,7 @@ export const todoStore = create(
         (set) => ({
             // Todo List
             todos: [],
+            hasHydrated: false,
 
             // Add Todo Function
             addTodo: (newTodo) => set((state) => ({
@@ -31,7 +32,10 @@ export const todoStore = create(
 
         }), 
         {
-            name: 'todo-storage'
+            name: 'todo-storage',
+            onRehydrateStorage: () => (state) => {
+                state.hasHydrated = true;
+            },
         }
     )
 );
