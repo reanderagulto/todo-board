@@ -1,4 +1,5 @@
 import { todoStore } from "@stores/todo.store";
+import DeleteIcon from '@mui/icons-material/Delete';
  
 const RemoveTask = ({
     id
@@ -19,7 +20,7 @@ const RemoveTask = ({
                     ()=>document.getElementById('remove_modal').showModal()
                 }
             >
-                Remove Tasks
+                <DeleteIcon color="error" fontSize="medium" />
             </button>
             <dialog id="remove_modal" className="modal">
                 <div className="modal-box">
