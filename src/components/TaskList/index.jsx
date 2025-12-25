@@ -1,5 +1,6 @@
 import { todoStore } from '@stores/todo.store';
 import RemoveTask from '@components/TaskActions/RemoveTask';
+import EditTask from '@components/TaskActions/EditTask';
 
 import BoltIcon from '@mui/icons-material/Bolt';
 import SyncIcon from '@mui/icons-material/Sync';
@@ -42,6 +43,7 @@ const TaskList = () => {
                     <div className="flex items-center text-base-content/60 list-col-grow">
                         {todo.name}
                     </div>
+                    <EditTask id={todo.id} />
                     <RemoveTask id={todo.id} />
                 </li>
                 ))

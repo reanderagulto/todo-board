@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 
 export const todoStore = create(
     persist(
-        (set) => ({
+        (set, get) => ({
             // Todo List
             todos: [],
             hasHydrated: false,
@@ -26,6 +26,10 @@ export const todoStore = create(
                         : todo
                 )
             })),
+
+            getTodoById: (id) => {
+                return get().todos.find((todo) => todo.id === id);
+            },
 
             // Clear Todos: 
             clearTodos: () => set({ todos: [] })
