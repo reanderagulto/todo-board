@@ -24,7 +24,7 @@ const EditTask = ({
             status: todo.status
         });
 
-        document.getElementById('edit_modal').showModal();
+        document.getElementById(`edit_modal_${id}`).showModal();
     }
 
     const updateTask = (e) => {
@@ -36,7 +36,7 @@ const EditTask = ({
     }
 
     const handleClose = () => {
-        document.getElementById('edit_modal').close();
+        document.getElementById(`edit_modal_${id}`).close();
         setTaskInfo({
             id: '',
             name: '',
@@ -63,7 +63,7 @@ const EditTask = ({
             >
                 <EditIcon color="success" fontSize="medium" />
             </button>
-            <dialog id="edit_modal" className="modal">
+            <dialog id={`edit_modal_${id}`} className="modal">
                 <form 
                     className="modal-box" 
                     onSubmit={updateTask}

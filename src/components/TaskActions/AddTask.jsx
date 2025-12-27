@@ -76,7 +76,6 @@ const AddTask = () => {
                             Status
                         </legend>
                         <select 
-                            defaultValue="ongoing" 
                             className="select w-full" 
                             name="status"
                             value={taskInfo.status}
