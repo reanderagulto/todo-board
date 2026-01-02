@@ -15,7 +15,8 @@ const AppRoutes = () => {
         {/* About */}
         <Route path="about" element={<About />} />
       </Route>
-
+      
+      {/* 404 Not Found Route */}
       <Route path="*" element={<NotFound />} />
     </Routes>  
   )
