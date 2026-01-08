@@ -1,32 +1,48 @@
-import { useState } from "react";
-import { todoStore } from "@stores/todo.store"
-import AddIcon from '@mui/icons-material/Add';
+import { useState } from 'react';
+import { todoStore } from '@stores/todo.store';
+import EditIcon from '@mui/icons-material/Edit';
 
-const AddTask = () => {
+const EditTask = ({
+  id = ''
+}) => {
+  const { getTodoById, editTodo } = todoStore();
   const [taskInfo, setTaskInfo] = useState({
-    id: crypto.randomUUID(),
-    name: '', 
-    date: '', 
-    status: 'active'
+    id: '',
+    name: '',
+    date: '',
+    status: ''
   });
-  
-  const { addTodo } = todoStore();
-  const addTask = (e) => {
+
+  const showModal = () => {
+    const todo = getTodoById(id);
+    if (!todo) return;
+
+    setTaskInfo({
+      id: todo.id,
+      name: todo.name,
+      date: todo.date,
+      status: todo.status
+    });
+
+    document.getElementById(`edit_modal_${id}`).showModal();
+  }
+
+  const updateTask = (e) => {
     e.preventDefault();
     if (!taskInfo.name.trim()) return;
 
-    addTodo(taskInfo);
+    editTodo(id, taskInfo);
     handleClose();
   }
 
   const handleClose = () => {
+    document.getElementById(`edit_modal_${id}`).close();
     setTaskInfo({
-      id: crypto.randomUUID(),
+      id: '',
       name: '',
       date: '',
-      status: 'active',
+      status: '',
     });
-    document.getElementById('add_modal').close();
   }
 
   const handleChange = (e) => {
@@ -39,24 +55,21 @@ const AddTask = () => {
   };
 
   return (
-    <div className="w-full my-4 flex items-end justify-end">
-      <button 
-        className="btn flex items-center justify-center px-4"
-        onClick={
-            ()=>document.getElementById('add_modal').showModal()
-        }
+    <>
+      <button
+        className="btn btn-active btn-error px-3"
+        onClick={showModal}
+        id={id}
       >
-        <AddIcon color="success" fontSize="medium" /> Add Task
+        <EditIcon color="success" fontSize="medium" />
       </button>
-      <dialog id="add_modal" className="modal">
+      <dialog id={`edit_modal_${id}`} className="modal">
         <form 
           className="modal-box" 
-          onSubmit={addTask}
+          onSubmit={updateTask}
         >
           <fieldset className="fieldset">
-            <legend 
-              className="fieldset-legend mb-2"
-            >
+            <legend className="fieldset-legend mb-2">
               Task Name
             </legend>
             <input 
@@ -69,9 +82,7 @@ const AddTask = () => {
             />
           </fieldset>
           <fieldset className="fieldset mt-4">
-            <legend 
-              className="fieldset-legend mb-2"
-            >
+            <legend className="fieldset-legend mb-2">
               Status
             </legend>
             <select 
@@ -87,28 +98,26 @@ const AddTask = () => {
             </select>
           </fieldset>
           <fieldset className="fieldset mt-4">
-            <legend 
-              className="fieldset-legend mb-2"
-            >
-              Completion Date
-            </legend>
-            <input 
-              type="date" 
-              name="date"
-              value={taskInfo.date}
-              className="input w-full"
-              onChange={handleChange}
-            />
+              <legend className="fieldset-legend mb-2">
+                Completion Date
+              </legend>
+              <input 
+                type="date" 
+                name="date"
+                value={taskInfo.date}
+                className="input w-full"
+                onChange={handleChange}
+              />
           </fieldset>
-          
           <div className="modal-action">
             <button 
-              type="submit"
-                className="btn px-4"
+              type="submit" 
+              className="btn px-4"
             >
               Submit
-            </button>
+            </button>   
             <button 
+              type="button"
               className="btn px-4"
               onClick={handleClose}
             >
@@ -117,8 +126,8 @@ const AddTask = () => {
           </div>
         </form>
       </dialog>
-    </div>
+    </>
   )
 }
 
-export default AddTask
+export default EditTask
