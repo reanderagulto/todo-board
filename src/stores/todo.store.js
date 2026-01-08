@@ -35,10 +35,10 @@ export const todoStore = create(
       clearTodos: () => set({ todos: [] })
     }), 
     {
-        name: 'todo-storage',
-        onRehydrateStorage: () => (state) => {
-          state.hasHydrated = true;
-        },
+      name: 'todo-storage',
+      onRehydrateStorage: () => (state) => {
+        state.hasHydrated = true;
+      },
     }
   )
 );

@@ -1,25 +1,40 @@
+import { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
+
+// Layouts
 import DashboardLayout from '@layouts/DashboardLayout';
-import DashboardHome from '@pages/DashboardHome';
-import About from '@pages/About';
-import NotFound from "@pages/NotFound";
+import DefaultLayout from '@layouts/DefaultLayout';
+
+// Authentication Route
+import AuthRoutes from '@routes/AuthRoutes';
+
+// Pages
+const DashboardHome = lazy(() => import('@pages/DashboardHome'));
+const About = lazy(() => import('@pages/About'));
+const Login = lazy(() => import('@pages/Login'));
+const NotFound = lazy(() => import('@pages/NotFound'));
 
 const AppRoutes = () => {
   return (
-    <Routes>
-      {/* Render Dashboard Layout */}
-      <Route path="/" element={<DashboardLayout />}>
-        {/* Home Route */}
-        <Route index element={<DashboardHome />} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
 
-        {/* About */}
-        <Route path="about" element={<About />} />
-      </Route>
-      
-      {/* 404 Not Found Route */}
-      <Route path="*" element={<NotFound />} />
-    </Routes>  
-  )
-}
+        {/* Public */}
+        <Route path="/login" element={<DefaultLayout><Login /></DefaultLayout>} />
+
+        {/* Protected */}
+        <Route element={<AuthRoutes />}>
+          <Route path="/" element={<DashboardLayout />}>
+            <Route index element={<DashboardHome />} />
+            <Route path="about" element={<About />} />
+          </Route>
+        </Route>
+
+        {/* 404 */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
+  );
+};
 
 export default AppRoutes;
