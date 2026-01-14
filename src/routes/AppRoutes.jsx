@@ -12,6 +12,7 @@ import AuthRoutes from '@routes/AuthRoutes';
 const DashboardHome = lazy(() => import('@pages/DashboardHome'));
 const About = lazy(() => import('@pages/About'));
 const Login = lazy(() => import('@pages/Login'));
+const Register = lazy(() => import('@pages/Register'));
 const NotFound = lazy(() => import('@pages/NotFound'));
 
 const AppRoutes = () => {
@@ -21,6 +22,7 @@ const AppRoutes = () => {
 
         {/* Public */}
         <Route path="/login" element={<DefaultLayout><Login /></DefaultLayout>} />
+								<Route path="/register" element={<DefaultLayout><Register /></DefaultLayout>} />
 
         {/* Protected */}
         <Route element={<AuthRoutes />}>
