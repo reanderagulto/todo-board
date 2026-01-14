@@ -2,26 +2,31 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { authStore } from '@stores/auth.store';
 
 const AuthRoutes = () => {
-  const { isAuthenticated, hasHydrated } = authStore();
+  const isAuthenticated = authStore((state) => state.isAuthenticated);
+  const hasHydrated = authStore((state) => state.hasHydrated);
   const location = useLocation();
-
-  if(!hasHydrated) {
+  
+  if (!hasHydrated) {
     return (
-      <div>Checking authentication...</div>
-    )
+      <div className="flex items-center justify-center min-h-screen">
+        <span className="loading loading-spinner loading-md" />
+      </div>
+    );
   }
-
-  if(!isAuthenticated) {
+  
+  // Redirect unauthenticated users
+  if (!isAuthenticated) {
     return (
-      <Navigate 
+      <Navigate
         to="/login"
         replace
         state={{ from: location }}
       />
-    )
+    );
   }
-
-  return <Outlet />
+  
+  // Authenticated → render protected routes
+  return <Outlet />;
 }
 
 export default AuthRoutes
