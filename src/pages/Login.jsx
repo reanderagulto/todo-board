@@ -39,7 +39,7 @@ const Login = () => {
 										<fieldset className="fieldset w-full">
 												<input
 														type="email"
-														className="input validator w-full"
+														className="input validator w-full px-3"
 														placeholder="Email"
 														value={form.email}
 														onChange={(e) =>
@@ -50,10 +50,10 @@ const Login = () => {
 												<p className="validator-hint hidden">Required</p>
 										</fieldset>
 
-										<label className="fieldset w-full">
+										<label className="fieldset w-full mt-2">
 												<input
 														type="password"
-														className="input validator w-full"
+														className="input validator w-full px-3"
 														placeholder="Password"
 														value={form.password}
 														onChange={(e) =>

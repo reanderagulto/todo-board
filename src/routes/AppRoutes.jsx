@@ -7,6 +7,7 @@ import DefaultLayout from '@layouts/DefaultLayout';
 
 // Authentication Route
 import AuthRoutes from '@routes/AuthRoutes';
+import { Loading } from '@components/Loading';
 
 // Pages
 const DashboardHome = lazy(() => import('@pages/DashboardHome'));
@@ -17,7 +18,7 @@ const NotFound = lazy(() => import('@pages/NotFound'));
 
 const AppRoutes = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <Routes>
 
         {/* Public */}

@@ -1,5 +1,6 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { authStore } from '@stores/auth.store';
+import { Loading } from '@components/Loading';
 
 const AuthRoutes = () => {
   const isAuthenticated = authStore((state) => state.isAuthenticated);
@@ -8,9 +9,7 @@ const AuthRoutes = () => {
   
   if (!hasHydrated) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <span className="loading loading-spinner loading-md" />
-      </div>
+      <Loading />
     );
   }
   
